@@ -1,8 +1,13 @@
 package com.hencoder.hencoderpracticedraw7.practice.practice06;
 
+import android.animation.Keyframe;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
@@ -40,6 +45,14 @@ public class Practice06KeyframeLayout extends RelativeLayout {
                 // 结束帧：progress 回落到 80
                 // 使用 PropertyValuesHolder.ofKeyframe() 来把关键帧拼接成一个完整的属性动画方案
                 // 使用 ObjectAnimator.ofPropertyValuesHolder() 来创建动画
+                final Keyframe one = Keyframe.ofFloat(0, 0);
+                final Keyframe two = Keyframe.ofFloat(0.5f, 100);
+                final Keyframe three = Keyframe.ofFloat(1, 80);
+                final PropertyValuesHolder progress = PropertyValuesHolder.ofKeyframe("progress", one, two, three);
+                final ObjectAnimator animator = ObjectAnimator.ofPropertyValuesHolder(view, progress);
+                animator.setInterpolator(new AccelerateDecelerateInterpolator());
+                animator.setDuration(2000);
+                animator.start();
             }
         });
     }
